@@ -61,7 +61,6 @@ void preencherABB( TArvore * no, int info){
     }else{
         printf("Não é possível inserir valores duplicados numa árvore binária de busca");
     }
-
 }
 
 TArvore * buscarABB(TArvore * no, int info) {
