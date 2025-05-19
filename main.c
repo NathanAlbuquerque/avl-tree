@@ -67,19 +67,27 @@ void lerAlternativa(char escolha){
                         if (leitura == 0)
                             break;
                         }
-                        
-                        
+                
                 preencherABB(raiz, leitura);
+                
+                int alturaEsquerda = contarAltura(raiz->esq);
+                int alturaDireita = contarAltura(raiz->dir);
+                int alturaTotal = contarAltura(raiz);
+
+                printf("Altura da subArvore esquerda: %d\n", alturaEsquerda);
+                printf("Altura da subArvore direita: %d\n", alturaDireita);
+                printf("Altura total da AVL: %d\n\n", alturaTotal);
+                     
                 break;
             case 'b':
                 while (1){
-                        printf("\nInforme o valor que será procurado na árvore: ");
+                        printf("\nInforme o valor que sera procurado na árvore: ");
                         scanf("%d",&leitura);
                         if (leitura == 0)
                             break;
                         TArvore * endereco = buscarABB(raiz, leitura);
                         if (endereco == NULL) {
-                            printf("\nEndereço não encontrado.\n\n");
+                            printf("\nEndereço nao encontrado.\n\n");
                         } else {
                             printf("\nEndereço encontrado: %p, Valor: %d\n\n", (void*)endereco, endereco->dado);
                         }
