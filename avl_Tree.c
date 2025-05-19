@@ -58,6 +58,23 @@ void preencherABB( TArvore * no, int info){
     }
 }
 
+int contarAltura(TArvore *no) {
+    if (no == NULL)
+        return 0;
+
+    int alturaEsq = contarAltura(no->esq);
+    int alturaDir = contarAltura(no->dir);
+    int maior;                                //quero que retorne 1, 2 ou 3 para tomar a ação da rotação
+
+    if (alturaEsq > alturaDir) {
+        maior = alturaEsq;
+    } else {
+        maior = alturaDir;
+    }
+
+    return maior + 1; // 
+}
+
 TArvore * buscarABB(TArvore * no, int info) {
     if (no == NULL)
         return no;
@@ -70,6 +87,8 @@ TArvore * buscarABB(TArvore * no, int info) {
         return buscarABB(no->dir, info);
     }
 }
+
+
 
 /*
 Funções a serem feitas:
