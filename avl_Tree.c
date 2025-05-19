@@ -1,14 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "avl_Tree.h"
 
-typedef struct SArvore{
-    struct SArvore * esq;
-    int dado;
-    int altura;
-    struct SArvore * dir;
-}TArvore;
-
-TArvore * raiz;
+TArvore *raiz = NULL; 
 
 void preOrdem(TArvore * no){
     if (no == NULL)
@@ -24,7 +18,7 @@ void ordem(TArvore * no){
         return;
 
     ordem(no->esq);
-    printf("%p %d ", no, no->dado);
+    printf("%p %d ", (void *)no, no->dado);
     ordem(no->dir);
 }
 
@@ -87,39 +81,3 @@ Rotação simples à esquerda (RR)
 Rotação dupla à direita (LR)
 Rotação dupla à esquerda (RL)
 */
-
-int main(int argc, char** argv) {
-
-    int leitura;
-    
-    raiz = malloc(sizeof(TArvore));
-    printf("Informe o valor da raiz: ");
-    scanf("%d",&raiz->dado);
-    raiz->esq = NULL;
-    raiz->dir = NULL;
-
-    while (1){
-        printf("Informe o valor que será inserido na árvore: ");
-        scanf("%d",&leitura);
-        if (leitura == 0)
-            break;
-        preencherABB(raiz, leitura);
-    }
-    
-    ordem(raiz);
-
-    while (1){
-        printf("\nInforme o valor que será procurado na árvore: ");
-        scanf("%d",&leitura);
-        if (leitura == 0)
-            break;
-        TArvore * endereco = buscarABB(raiz, leitura);
-        if (endereco == NULL) {
-            printf("\nEndereço não encontrado.\n\n");
-        } else {
-            printf("\nEndereço encontrado: %p, Valor: %d\n\n", /*endereco,*/ endereco->dado);
-        }
-    }
-
-    return (EXIT_SUCCESS);
-}
