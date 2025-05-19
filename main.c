@@ -62,22 +62,16 @@ void lerAlternativa(char escolha){
                 }
 
                 while (1){
-                        printf("Informe o valor que sera inserido na arvore: ");
-                        scanf("%d",&leitura);
-                        if (leitura == 0)
-                            break;
-                        }
-                
-                preencherABB(raiz, leitura);
-                
-                int alturaEsquerda = contarAltura(raiz->esq);
-                int alturaDireita = contarAltura(raiz->dir);
-                int alturaTotal = contarAltura(raiz);
+                    printf("Informe o valor que sera inserido na arvore: ");
+                    scanf("%d",&leitura);
+                    if (leitura == 0)
+                        break;
+                    preencherABB(raiz, leitura);      
+                    atualizarAltura();                // mostra as alturas logo após inserir
+                }
 
-                printf("Altura da subArvore esquerda: %d\n", alturaEsquerda);
-                printf("Altura da subArvore direita: %d\n", alturaDireita);
-                printf("Altura total da AVL: %d\n\n", alturaTotal);
-                     
+                preencherABB(raiz, leitura);   
+                atualizarAltura();  
                 break;
             case 'b':
                 while (1){
