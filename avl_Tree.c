@@ -4,7 +4,7 @@
 typedef struct SArvore{
     struct SArvore * esq;
     int dado;
-    int indice;
+    int altura;
     struct SArvore * dir;
 }TArvore;
 
@@ -42,6 +42,7 @@ void preencherABB( TArvore * no, int info){
         return;
 
     TArvore * novo;
+
     if (info < no->dado){
         if (no->esq == NULL){
             novo = malloc(sizeof(TArvore));
@@ -69,12 +70,23 @@ TArvore * buscarABB(TArvore * no, int info) {
     
     if (no->dado == info) {
         return no;
-    } else if (no->dado > info) {
-        buscarABB(no->esq, info);
-    } else if (no->dado < info) {
-        buscarABB(no->dir, info);
+    } if (no->dado > info) {
+        return buscarABB(no->esq, info);
+    } else {
+        return buscarABB(no->dir, info);
     }
 }
+
+/*
+Funções a serem feitas:
+Atualizar o campo fb (fator de balanceamento).
+Detectar desbalanceamento após inserção.
+Fazer as 4 rotações AVL:
+Rotação simples à direita (LL)
+Rotação simples à esquerda (RR)
+Rotação dupla à direita (LR)
+Rotação dupla à esquerda (RL)
+*/
 
 int main(int argc, char** argv) {
 
@@ -85,7 +97,6 @@ int main(int argc, char** argv) {
     scanf("%d",&raiz->dado);
     raiz->esq = NULL;
     raiz->dir = NULL;
-    //preencherArvore(raiz);
 
     while (1){
         printf("Informe o valor que será inserido na árvore: ");
@@ -98,7 +109,7 @@ int main(int argc, char** argv) {
     ordem(raiz);
 
     while (1){
-        printf("Informe o valor que será procurado na árvore: ");
+        printf("\nInforme o valor que será procurado na árvore: ");
         scanf("%d",&leitura);
         if (leitura == 0)
             break;
@@ -106,12 +117,9 @@ int main(int argc, char** argv) {
         if (endereco == NULL) {
             printf("\nEndereço não encontrado.\n\n");
         } else {
-            printf("\nEndereço encontrado: %p, Valor: %d\n\n", endereco, endereco->dado);
+            printf("\nEndereço encontrado: %p, Valor: %d\n\n", /*endereco,*/ endereco->dado);
         }
     }
 
     return (EXIT_SUCCESS);
 }
-/*
-Alteração
-*/
