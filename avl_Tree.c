@@ -54,19 +54,16 @@ void atualizarAltura(TArvore * raiz) {
     raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
 }
 
+/**
+ * Retorna o fator de balanceamento do nó em questão
+ * @param TArvore *no "Nó a ser calculado o fator de balanceamento"
+ * @return int
+ */
 int fatorBalanceamento(TArvore * no) {
+    if (no == NULL) return 0;
     int alturaEsq = no->esq ? no->esq->altura : -1;
     int alturaDir = no->dir ? no->dir->altura : -1;
-
-    if (no == NULL) {
-        return 0; 
-    }
-    return no->esq->altura - no->dir->altura; 
-}
-
-void imprimirFatorBalanceamento(TArvore *no) {
-    int fb = fatorBalanceamento(no);
-    printf("Fator de balanceamento da raiz: %d\n", fb);
+    return no->esq->altura - no->dir->altura;
 }
 
 TArvore * buscarABB(TArvore * no, int info) {

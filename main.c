@@ -80,8 +80,7 @@ void lerAlternativa(char escolha){
                     printf("Altura da subArvore direita: %d\n", raiz->dir->altura);
                     printf("Altura total da AVL: %d\n\n", raiz->altura);
 
-                    fatorBalanceamento(raiz);
-                    imprimirFatorBalanceamento(raiz);
+                    printf("Fator de balanceamento da raiz: %d\n", fatorBalanceamento(raiz));
                 }
 
                 printf("\n\nArvore preenchida com sucesso!\n\n");
