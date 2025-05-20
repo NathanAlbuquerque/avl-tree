@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "avl_Tree.h" //<-- nao entendi pra que isso
-
 typedef struct SArvore {
     struct SArvore *esq;
     int dado;
