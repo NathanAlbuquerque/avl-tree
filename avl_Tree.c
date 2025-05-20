@@ -38,7 +38,7 @@ void posOrdem(TArvore * no){
     printf("%d ",no->dado);
 }
 
-int contarAltura(TArvore *no) {
+int contarAltura(TArvore * no) {
     if (no == NULL)
         return 0;
 
@@ -55,14 +55,14 @@ int contarAltura(TArvore *no) {
     return maior + 1; // 
 }
 
-int alturaNo(TArvore *no) {   // definindo a altura do nó
+int alturaNo(TArvore * no) {   // definindo a altura do nó
     if (no == NULL) {
             return -1;       // verificar se o nó é nulo
         }
     return no->altura;   // se o nó não for nulo retorna altura dele
 }
 
-void atualizarAltura(TArvore *no) {
+void atualizarAltura(TArvore * no) {
     if (no == NULL) return;
     atualizarAltura(no->esq);
     atualizarAltura(no->dir);
@@ -86,14 +86,14 @@ void imprimirAltura() {
     printf("Altura total da AVL: %d\n\n", alturaTotal);
 }
 
-int fatorBalanceamento(TArvore *no) {
+int fatorBalanceamento(TArvore * no) {
     if (no == NULL) {
         return 0; 
     }
     return alturaNo(no->esq) - alturaNo(no->dir); 
 }
 
-void imprimirFatorBalanceamento(TArvore *no) {
+void imprimirFatorBalanceamento(TArvore * no) {
     int fb = fatorBalanceamento(no);
     printf("Fator de balanceamento da raiz: %d\n\n", fb);
 }
