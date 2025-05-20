@@ -4,32 +4,40 @@
 
 TArvore *raiz = NULL;
 
-void preOrdem(TArvore * no){
-    if (no == NULL)
-        return;
-
-    printf("%p %d " ,no,no->dado);
-    preOrdem(no->esq);
-    preOrdem(no->dir);
-}
-
-void ordem(TArvore * no){
-    if (no == NULL)
-        return;
-
-    ordem(no->esq);
+/**
+ * Percorre e printa a árvore no sentido de pré-ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printPreOrdem(TArvore * no) {
+    if (no == NULL) return;
     printf("%p %d ", no, no->dado);
-    // printf("%d ", no->dado); modo mais simples
-    ordem(no->dir);
+    printPreOrdem(no->esq);
+    printPreOrdem(no->dir);
 }
 
-void posOrdem(TArvore * no){
-    if (no == NULL)
-        return;
+/**
+ * Percorre e printa a árvore no sentido de ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printOrdem(TArvore * no) {
+    if (no == NULL) return;
+    printOrdem(no->esq);
+    printf("%p %d ", (void *)no, no->dado);
+    printOrdem(no->dir);
+}
 
-    posOrdem(no->esq);
-    posOrdem(no->dir);
-    printf("%p %d ", no,no->dado);
+/**
+ * Percorre e printa a árvore no sentido de pós-ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printPosOrdem(TArvore * no) {
+    if (no == NULL) return;
+    printPosOrdem(no->esq);
+    printPosOrdem(no->dir);
+    printf("%p %d ", (void *)no, no->dado);
 }
 
 int contarAltura(TArvore * no) {

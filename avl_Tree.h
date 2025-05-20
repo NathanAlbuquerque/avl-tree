@@ -10,9 +10,9 @@ typedef struct SArvore{
 
 extern TArvore *raiz;
 
-void preOrdem(TArvore *no);
-void ordem(TArvore *no);
-void posOrdem(TArvore *no);
+void printPreOrdem(TArvore *no);
+void printOrdem(TArvore *no);
+void printPosOrdem(TArvore *no);
 void preencherABB(TArvore *no, int info);
 TArvore *buscarABB(TArvore *no, int info);
 int contarAltura(TArvore *no);

@@ -107,28 +107,28 @@ void lerAlternativa(char escolha){
                             {
                             case 1:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
-                                preOrdem(raiz);
+                                printPreOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 2:
                                 printf("\n\n========= ORDEM =======\n\n");
-                                ordem(raiz);
+                                printOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 3: 
                                 printf("\n\n========= POS-ORDEM =======\n\n");
-                                posOrdem(raiz);
+                                printPosOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 4:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
-                                preOrdem(raiz);
+                                printPreOrdem(raiz);
                                 printf("}\n");
                                 printf("\n\n========= ORDEM =======\n\n");
-                                ordem(raiz);
+                                printOrdem(raiz);
                                 printf("}\n");
                                 printf("\n\n========= POS-ORDEM =======\n\n");
-                                posOrdem(raiz);
+                                printPosOrdem(raiz);
                                 printf("}\n");
                                 break;
                             default:
