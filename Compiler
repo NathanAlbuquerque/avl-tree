@@ -1,5 +1,0 @@
-
-Comando para realizar a compilação na máquina caso necessário.
-
-gcc main.c avl_Tree.c -o output/main.exe 
-
