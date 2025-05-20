@@ -4,155 +4,150 @@
 
 TArvore *raiz = NULL;
 
-void preOrdem(TArvore * no){
-    if (no == NULL)
-        return;
-
-    printf("%p %d " ,no,no->dado);
-    preOrdem(no->esq);
-    preOrdem(no->dir);
-}
-
-void ordem(TArvore * no){
-    if (no == NULL)
-        return;
-
-    ordem(no->esq);
-    printf("%p %d ", no, no->dado);
-    // printf("%d ", no->dado); modo mais simples
-    ordem(no->dir);
-}
-
-void posOrdem(TArvore * no){
-    if (no == NULL)
-        return;
-
-    posOrdem(no->esq);
-    posOrdem(no->dir);
-    printf("%p %d ", no,no->dado);
-}
-
-int contarAltura(TArvore * no) {
-    if (no == NULL)
-        return 0;
-
-    int alturaEsq = contarAltura(no->esq);
-    int alturaDir = contarAltura(no->dir);
-    int maior;                                //quero que retorne 1, 2 ou 3 para tomar a ação da rotação
-
-    if (alturaEsq > alturaDir) {
-        maior = alturaEsq;
-    } else {
-        maior = alturaDir;
-    }
-
-    return maior + 1; // 
-}
-
-
-int alturaNo(TArvore *no) {   // definindo a altura do nó
-    if (no == NULL) {
-            return -1;       // verificar se o nó é nulo
-        }
-    return no->altura;   // se o nó não for nulo retorna altura dele
-}
-
-
-void atualizarAltura(TArvore *no) {
+/**
+ * Percorre e printa a árvore no sentido de pré-ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printPreOrdem(TArvore * no) {
     if (no == NULL) return;
-    atualizarAltura(no->esq);
-    atualizarAltura(no->dir);
-    int alturaEsq = no->esq ? no->esq->altura : 0; // verifica se o nó esquerdo é nulo
-    int alturaDir = no->dir ? no->dir->altura : 0; // verifica se o nó direito é nulo
-    no->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
+    printf("%p %d ", no, no->dado);
+    printPreOrdem(no->esq);
+    printPreOrdem(no->dir);
 }
 
-void imprimirAltura() {
-    int alturaEsquerda = contarAltura(raiz->esq);
-    int alturaDireita = contarAltura(raiz->dir);
-    int alturaTotal = contarAltura(raiz);
-
-    // Atualiza o campo altura do nó raiz
-    if (raiz != NULL)
-        raiz->altura = alturaTotal;
-
-    printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
-    printf("Altura da subArvore esquerda: %d\n", alturaEsquerda);
-    printf("Altura da subArvore direita: %d\n", alturaDireita);
-    printf("Altura total da AVL: %d\n\n", alturaTotal);
+/**
+ * Percorre e printa a árvore no sentido de ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printOrdem(TArvore * no) {
+    if (no == NULL) return;
+    printOrdem(no->esq);
+    printf("%p %d ", (void *)no, no->dado);
+    printOrdem(no->dir);
 }
 
-int fatorBalanceamento(TArvore *no) {
-    if (no == NULL) {
-        return 0; 
-    }
-    return alturaNo(no->esq) - alturaNo(no->dir); 
+/**
+ * Percorre e printa a árvore no sentido de pós-ordem
+ * @param TArvore *no "Nó raiz do qual a função vai iniciar a percorrer, geralmente a raiz"
+ * @return void
+ */
+void printPosOrdem(TArvore * no) {
+    if (no == NULL) return;
+    printPosOrdem(no->esq);
+    printPosOrdem(no->dir);
+    printf("%p %d ", (void *)no, no->dado);
 }
 
-void imprimirFatorBalanceamento(TArvore *no) {
-    int fb = fatorBalanceamento(no);
-    printf("Fator de balanceamento da raiz: %d\n", fb);
+/**
+ * Atualiza as informações de altura de toda a árvore
+ * @param TArvore *raiz "Raiz da árvore"
+ * @return void
+ */
+void atualizarAltura(TArvore * raiz) {
+    if (raiz == NULL) return;
+    atualizarAltura(raiz->esq);
+    atualizarAltura(raiz->dir);
+    int alturaEsq = raiz->esq ? raiz->esq->altura : -1;
+    int alturaDir = raiz->dir ? raiz->dir->altura : -1;
+    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
 }
 
+/**
+ * Retorna o fator de balanceamento do nó em questão
+ * @param TArvore *no "Nó a ser calculado o fator de balanceamento"
+ * @return int
+ */
+int fatorBalanceamento(TArvore * no) {
+    if (no == NULL) return 0;
+    int alturaEsq = no->esq ? no->esq->altura : -1;
+    int alturaDir = no->dir ? no->dir->altura : -1;
+    return no->esq->altura - no->dir->altura;
+}
+
+/**
+ * Encontra e retorna um nó especifico baseado em um valor
+ * @param TArvore *no "Nó base a ser consultado"
+ * @param int info "Valor a ser procurado na árvore"
+ * @return TArvore *
+ */
 TArvore * buscarABB(TArvore * no, int info) {
-    if (no == NULL)
+    if (no == NULL) return no;
+    if (no->dado == info)
         return no;
-    
-    if (no->dado == info) {
-        return no;
-    } if (no->dado > info) {
+    else if (no->dado > info)
         return buscarABB(no->esq, info);
-    } else {
+    else
         return buscarABB(no->dir, info);
-    }
 }
 
+/**
+ * Realiza a rotação direita (to right)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoDireita(TArvore * no) {
     TArvore * nova_raiz = no->esq;
     TArvore * temp = nova_raiz->dir;
-
     nova_raiz->dir = no;
     no->esq = temp;
-
     atualizarAltura(no);
     atualizarAltura(nova_raiz);
-
     return nova_raiz;
 }
 
+/**
+ * Realiza a rotação esquerda (to left)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoEsquerda(TArvore * no) {
     TArvore * nova_raiz = no->dir;
     TArvore * temp = nova_raiz->esq;
-
     nova_raiz->esq = no;
     no->dir = temp;
-
     atualizarAltura(no);
     atualizarAltura(nova_raiz);
-
     return nova_raiz;
 }
 
+/**
+ * Realiza a rotação esquerda-direita (to left-right)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoEsquerdaDireita(TArvore * no) {
     no->esq = rotacaoEsquerda(no->esq);
     return rotacaoDireita(no);
 }
 
+/**
+ * Realiza a rotação direita-esquerda (to right-left)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoDireitaEsquerda(TArvore * no) {
     no->dir = rotacaoDireita(no->dir);
     return rotacaoEsquerda(no);
 }
 
-TArvore* inserirAVL(TArvore * no, int dado) {
-    
+/**
+ * Insere um novo nó na árvore, ja realizando o balanceamento necessário
+ * @param TArvore *no "Nó base de pesquisa para encontrar o local correto para inserção"
+ * @param int dado "Valor do nó a ser adicionado"
+ * @return TArvore *
+ */
+TArvore * inserirAVL(TArvore * no, int dado) {
+    // Neste caso a raiz é criada
     if (no == NULL) {
-        TArvore* novo = malloc(sizeof(TArvore));
+        TArvore * novo = malloc(sizeof(TArvore));
         novo->dado = dado;
         novo->esq = novo->dir = NULL;
-        novo->altura = 1;
         return novo;
     }
 
+    // Encontra o lugar aproopriado e insere o nó
     if (dado < no->dado) {
         no->esq = inserirAVL(no->esq, dado);
     } else if (dado > no->dado) {
@@ -162,8 +157,7 @@ TArvore* inserirAVL(TArvore * no, int dado) {
         return no;
     }
 
-    atualizarAltura(no);
-
+    // Balancea a árvore caso necessário
     int fb = fatorBalanceamento(no);
 
     // Caso Esquerda-Esquerda
@@ -185,3 +179,39 @@ TArvore* inserirAVL(TArvore * no, int dado) {
     return no;
 }
 
+// Função recursiva para imprimir a árvore em formato JSON
+void salvar_json(FILE *arquivo, TArvore *no) {
+    if (no == NULL) {
+        fprintf(arquivo, "null");
+        return;
+    }
+
+    fprintf(arquivo, "{\n");
+
+    // "dado"
+    fprintf(arquivo, "   \"dado\":%d,\n", no->dado);
+
+    // "esq"
+    fprintf(arquivo, "   \"esq\":");
+    salvar_json(arquivo, no->esq);
+    fprintf(arquivo, ",\n");
+
+    // "dir"
+    fprintf(arquivo, "   \"dir\":");
+    salvar_json(arquivo, no->dir);
+    fprintf(arquivo, "\n}");
+
+}
+
+// Função para iniciar a gravação em arquivo
+void exportar_arvore_json(const char *nome_arquivo, TArvore *raiz) {
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    salvar_json(arquivo, raiz);
+    fprintf(arquivo, "\n");
+    fclose(arquivo);
+}

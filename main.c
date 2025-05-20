@@ -6,13 +6,11 @@ extern TArvore *raiz;
 
 void menu(){
     printf("\n\n========= Menu =======\n\n");
-    
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
     printf("[c] - Imprimir Grafo\n");
     printf("[d] - Converter GRAFO para JSON\n");
     printf("[e] - Sair\n");
-
     printf("\n=======================\n\n");
 }
 
@@ -58,24 +56,28 @@ void lerAlternativa(char escolha){
                 printf("\n\n========= INSERIR NO =======\n\n");
                 printf("Para sair do loop, digite 0.\n");
 
-                if (raiz == NULL){
-                    raiz = malloc(sizeof(TArvore));
-                    raiz->dado = lerInteiro("Informe o valor da raiz: ");
-                    raiz->esq = NULL;
-                    raiz->dir = NULL;
+                if (raiz == NULL) {
+                    raiz = inserirAVL(NULL, lerInteiro("Informe o valor da raiz: "));
+                    printf("Arvore criada com sucesso!\n\n");
                 }
-                printf("Arvore criada com sucesso!\n\n");
 
                 while (1){
                     printf("Informe o valor que sera inserido na arvore: ");
                     leitura = lerInteiro(": ");
                     if (leitura == 0)
-                        break;    
-                    raiz = inserirAVL(raiz, leitura);      
-                    atualizarAltura(raiz);  
-                    imprimirAltura(); // mostra as alturas logo após inserir
-                    fatorBalanceamento(raiz);
-                    imprimirFatorBalanceamento(raiz);
+                        break;
+
+                    atualizarAltura(raiz);
+                    raiz = inserirAVL(raiz, leitura);     
+                    atualizarAltura(raiz);
+
+                    // mostra as alturas logo após inserir
+                    printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
+                    printf("Altura da subArvore esquerda: %d\n", raiz->esq->altura);
+                    printf("Altura da subArvore direita: %d\n", raiz->dir->altura);
+                    printf("Altura total da AVL: %d\n\n", raiz->altura);
+
+                    printf("Fator de balanceamento da raiz: %d\n", fatorBalanceamento(raiz));
                 }
 
                 printf("\n\nArvore preenchida com sucesso!\n\n");
@@ -107,37 +109,36 @@ void lerAlternativa(char escolha){
                             {
                             case 1:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
-                                preOrdem(raiz);
+                                printPreOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 2:
                                 printf("\n\n========= ORDEM =======\n\n");
-                                ordem(raiz);
+                                printOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 3: 
                                 printf("\n\n========= POS-ORDEM =======\n\n");
-                                posOrdem(raiz);
+                                printPosOrdem(raiz);
                                 printf("}\n");
                                 break;
                             case 4:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
-                                preOrdem(raiz);
+                                printPreOrdem(raiz);
                                 printf("}\n");
                                 printf("\n\n========= ORDEM =======\n\n");
-                                ordem(raiz);
+                                printOrdem(raiz);
                                 printf("}\n");
                                 printf("\n\n========= POS-ORDEM =======\n\n");
-                                posOrdem(raiz);
+                                printPosOrdem(raiz);
                                 printf("}\n");
                                 break;
                             default:
                                 break;
                             }
                         ;break;
-            case 'd': // INSERIR AQUI O CÓDIGO PARA CONVERTER PARA JSON
-
-
+            case 'd':
+                exportar_arvore_json("avl.json", raiz);
                 break;
             case 'e': break;
         default:
