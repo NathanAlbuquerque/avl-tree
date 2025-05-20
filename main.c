@@ -137,7 +137,8 @@ void lerAlternativa(char escolha){
                                 break;
                             }
                         ;break;
-            case 'd': // INSERIR AQUI O CÓDIGO PARA CONVERTER PARA JSON
+            case 'd':
+                exportar_arvore_json("avl.json", raiz);
                 break;
             case 'e': break;
         default:

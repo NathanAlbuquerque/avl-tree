@@ -178,3 +178,40 @@ TArvore * inserirAVL(TArvore * no, int dado) {
 
     return no;
 }
+
+// Função recursiva para imprimir a árvore em formato JSON
+void salvar_json(FILE *arquivo, TArvore *no) {
+    if (no == NULL) {
+        fprintf(arquivo, "null");
+        return;
+    }
+
+    fprintf(arquivo, "{\n");
+
+    // "dado"
+    fprintf(arquivo, "   \"dado\":%d,\n", no->dado);
+
+    // "esq"
+    fprintf(arquivo, "   \"esq\":");
+    salvar_json(arquivo, no->esq);
+    fprintf(arquivo, ",\n");
+
+    // "dir"
+    fprintf(arquivo, "   \"dir\":");
+    salvar_json(arquivo, no->dir);
+    fprintf(arquivo, "\n}");
+
+}
+
+// Função para iniciar a gravação em arquivo
+void exportar_arvore_json(const char *nome_arquivo, TArvore *raiz) {
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+
+    salvar_json(arquivo, raiz);
+    fprintf(arquivo, "\n");
+    fclose(arquivo);
+}

@@ -21,4 +21,6 @@ TArvore * rotacaoEsquerda(TArvore * no);
 TArvore * rotacaoEsquerdaDireita(TArvore * no);
 TArvore * rotacaoDireitaEsquerda(TArvore * no);
 TArvore* inserirAVL(TArvore * no, int dado);
+void salvar_json(FILE *arquivo, TArvore *no);
+void exportar_arvore_json(const char *nome_arquivo, TArvore *raiz);
 #endif
