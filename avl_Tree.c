@@ -82,7 +82,17 @@ if (no == NULL) {
 return no->altura;   // se o nó não for nulo retorna altura dele
 }
 
-void atualizarAltura() {
+void atualizarAltura(TArvore *no) {
+    if (no == NULL) return;
+    atualizarAltura(no->esq);
+    atualizarAltura(no->dir);
+    int alturaEsq = no->esq ? no->esq->altura : 0; // verifica se o nó esquerdo é nulo
+    int alturaDir = no->dir ? no->dir->altura : 0; // verifica se o nó direito é nulo
+    no->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
+}
+
+
+void imprimirAltura() {
     int alturaEsquerda = contarAltura(raiz->esq);
     int alturaDireita = contarAltura(raiz->dir);
     int alturaTotal = contarAltura(raiz);
@@ -96,6 +106,8 @@ void atualizarAltura() {
     printf("Altura da subArvore direita: %d\n", alturaDireita);
     printf("Altura total da AVL: %d\n\n", alturaTotal);
 }
+
+
 TArvore * buscarABB(TArvore * no, int info) {
     if (no == NULL)
         return no;

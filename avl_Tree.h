@@ -17,5 +17,6 @@ void preencherABB(TArvore *no, int info);
 TArvore *buscarABB(TArvore *no, int info);
 int contarAltura(TArvore *no);
 int alturaNo(TArvore *no);
-void atualizarAltura();
+void atualizarAltura(TArvore *no);
+void imprimirAltura();
 #endif

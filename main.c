@@ -67,11 +67,10 @@ void lerAlternativa(char escolha){
                     if (leitura == 0)
                         break;
                     preencherABB(raiz, leitura);      
-                    atualizarAltura();                // mostra as alturas logo após inserir
+                    atualizarAltura(raiz);  
+                    imprimirAltura();              // mostra as alturas logo após inserir
                 }
-
-                preencherABB(raiz, leitura);   
-                atualizarAltura();  
+ 
                 break;
             case 'b':
                 while (1){
