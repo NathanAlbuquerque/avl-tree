@@ -19,4 +19,6 @@ int contarAltura(TArvore *no);
 int alturaNo(TArvore *no);
 void atualizarAltura(TArvore *no);
 void imprimirAltura();
+int fatorBalanceamento(TArvore *no);
+void imprimirFatorBalanceamento(TArvore *no);
 #endif

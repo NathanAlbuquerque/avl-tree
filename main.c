@@ -68,9 +68,10 @@ void lerAlternativa(char escolha){
                         break;
                     preencherABB(raiz, leitura);      
                     atualizarAltura(raiz);  
-                    imprimirAltura();              // mostra as alturas logo após inserir
+                    imprimirAltura(); // mostra as alturas logo após inserir
+                    fatorBalanceamento(raiz);
+                    imprimirFatorBalanceamento(raiz);
                 }
- 
                 break;
             case 'b':
                 while (1){

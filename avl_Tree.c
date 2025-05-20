@@ -107,6 +107,17 @@ void imprimirAltura() {
     printf("Altura total da AVL: %d\n\n", alturaTotal);
 }
 
+int fatorBalanceamento(TArvore *no) {
+    if (no == NULL) {
+        return 0; 
+    }
+    return alturaNo(no->esq) - alturaNo(no->dir); 
+}
+
+void imprimirFatorBalanceamento(TArvore *no) {
+    int fb = fatorBalanceamento(no);
+    printf("Fator de balanceamento da raiz: %d\n", fb);
+}
 
 TArvore * buscarABB(TArvore * no, int info) {
     if (no == NULL)
