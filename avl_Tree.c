@@ -40,23 +40,21 @@ void printPosOrdem(TArvore * no) {
     printf("%p %d ", (void *)no, no->dado);
 }
 
-void atualizarAltura(TArvore *no) {
-    if (no == NULL) return;
-    atualizarAltura(no->esq);
-    atualizarAltura(no->dir);
-    int alturaEsq = no->esq ? no->esq->altura : 0; // verifica se o nó esquerdo é nulo
-    int alturaDir = no->dir ? no->dir->altura : 0; // verifica se o nó direito é nulo
-    no->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
+/**
+ * Atualiza as informações de altura de toda a árvore
+ * @param TArvore *raiz "Raiz da árvore"
+ * @return void
+ */
+void atualizarAltura(TArvore * raiz) {
+    if (raiz == NULL) return;
+    atualizarAltura(raiz->esq);
+    atualizarAltura(raiz->dir);
+    int alturaEsq = raiz->esq ? raiz->esq->altura : 0; // verifica se o nó esquerdo é nulo
+    int alturaDir = raiz->dir ? raiz->dir->altura : 0; // verifica se o nó direito é nulo
+    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
 }
 
-void imprimirAltura() {
-    printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
-    printf("Altura da subArvore esquerda: %d\n", raiz->esq->altura);
-    printf("Altura da subArvore direita: %d\n", raiz->dir->altura);
-    printf("Altura total da AVL: %d\n\n", raiz->altura);
-}
-
-int fatorBalanceamento(TArvore *no) { // aqui
+int fatorBalanceamento(TArvore * no) {
     int alturaEsq = no->esq ? no->esq->altura : -1;
     int alturaDir = no->dir ? no->dir->altura : -1;
 

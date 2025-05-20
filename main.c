@@ -73,7 +73,13 @@ void lerAlternativa(char escolha){
                         break;    
                     raiz = inserirAVL(raiz, leitura);      
                     atualizarAltura(raiz);  
-                    imprimirAltura(); // mostra as alturas logo após inserir
+
+                    // mostra as alturas logo após inserir
+                    printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
+                    printf("Altura da subArvore esquerda: %d\n", raiz->esq->altura);
+                    printf("Altura da subArvore direita: %d\n", raiz->dir->altura);
+                    printf("Altura total da AVL: %d\n\n", raiz->altura);
+
                     fatorBalanceamento(raiz);
                     imprimirFatorBalanceamento(raiz);
                 }
