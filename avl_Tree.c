@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct SArvore {
-    struct SArvore *esq;
-    int dado;
-    int altura;
-    struct SArvore *dir;
-} TArvore;
+#include "avl_Tree.h"
 
-TArvore * raiz = NULL; 
+TArvore *raiz = NULL;
 
 void preOrdem(TArvore * no){
     if (no == NULL)
@@ -23,7 +18,8 @@ void ordem(TArvore * no){
         return;
 
     ordem(no->esq);
-    printf("%d ", no->dado);
+    printf("%p %d ", (void *)no, no->dado);
+    // printf("%d ", no->dado); modo mais simples
     ordem(no->dir);
 }
 
