@@ -8,8 +8,8 @@ void menu(){
     printf("\n\n========= Menu =======\n\n");
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
-    printf("[c] - Deletar No\n");
-    printf("[d] - Imprimir Grafo\n");
+    printf("[c] - Imprimir Grafo\n");
+    printf("[d] - Deletar No\n");
     printf("[e] - Sair\n");
 }
 
@@ -66,7 +66,7 @@ void lerAlternativa(char escolha){
                     scanf("%d",&leitura);
                     if (leitura == 0)
                         break;
-                    preencherABB(raiz, leitura);      
+                    inserirAVL(raiz, leitura);      
                     atualizarAltura(raiz);  
                     imprimirAltura(); // mostra as alturas logo após inserir
                     fatorBalanceamento(raiz);
@@ -87,7 +87,29 @@ void lerAlternativa(char escolha){
                         }
                     };
                 break;
-            case 'c': ;break;
+            case 'c': 
+                        printf("\n\n========= MENU DE IMPRESSÃO =======\n\n");
+                        printf("\nInforme a ordem de impressão: ");
+                        printf("\n— [1] Pre-Ordem \n— [2] ORDEM \n— [3] Pos-Ordem");
+                        printf("\n\n==================================\n\n");
+
+                        int imprimir = lerInteiro(": ");
+
+                        switch (imprimir)
+                            {
+                            case 1:
+                                preOrdem(raiz);
+                                break;
+                            case 2:
+                                ordem(raiz);
+                                break;
+                            case 3: 
+                                posOrdem(raiz);
+                                break;
+                            default:
+                                break;
+                            }
+                        ;break;
             case 'd': break;
             case 'e': break;
         default:
