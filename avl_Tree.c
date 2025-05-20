@@ -8,7 +8,7 @@ void preOrdem(TArvore * no){
     if (no == NULL)
         return;
 
-    printf("%d ",no->dado);
+    printf("%p %d " ,no,no->dado);
     preOrdem(no->esq);
     preOrdem(no->dir);
 }
@@ -18,7 +18,7 @@ void ordem(TArvore * no){
         return;
 
     ordem(no->esq);
-    printf("%p %d ", (void *)no, no->dado);
+    printf("%p %d ", no, no->dado);
     // printf("%d ", no->dado); modo mais simples
     ordem(no->dir);
 }
@@ -29,7 +29,7 @@ void posOrdem(TArvore * no){
 
     posOrdem(no->esq);
     posOrdem(no->dir);
-    printf("%d ",no->dado);
+    printf("%p %d ", no,no->dado);
 }
 
 int contarAltura(TArvore * no) {
@@ -184,3 +184,4 @@ TArvore* inserirAVL(TArvore * no, int dado) {
 
     return no;
 }
+

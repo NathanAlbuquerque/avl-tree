@@ -6,11 +6,14 @@ extern TArvore *raiz;
 
 void menu(){
     printf("\n\n========= Menu =======\n\n");
+    
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
     printf("[c] - Imprimir Grafo\n");
-    printf("[d] - Deletar No\n");
+    printf("[d] - Converter GRAFO para JSON\n");
     printf("[e] - Sair\n");
+
+    printf("\n=======================\n\n");
 }
 
 void limparTela() { 
@@ -52,45 +55,50 @@ void lerAlternativa(char escolha){
     switch (escolha) {
             int leitura;
             case 'a': 
+                printf("\n\n========= INSERIR NO =======\n\n");
+                printf("Para sair do loop, digite 0.\n");
 
                 if (raiz == NULL){
                     raiz = malloc(sizeof(TArvore));
-                    printf("Informe o valor da raiz: ");
-                    scanf("%d",&raiz->dado);
+                    raiz->dado = lerInteiro("Informe o valor da raiz: ");
                     raiz->esq = NULL;
                     raiz->dir = NULL;
                 }
+                printf("Arvore criada com sucesso!\n\n");
 
                 while (1){
                     printf("Informe o valor que sera inserido na arvore: ");
-                    scanf("%d",&leitura);
+                    leitura = lerInteiro(": ");
                     if (leitura == 0)
-                        break;
-                    inserirAVL(raiz, leitura);      
+                        break;    
+                    raiz = inserirAVL(raiz, leitura);      
                     atualizarAltura(raiz);  
                     imprimirAltura(); // mostra as alturas logo após inserir
                     fatorBalanceamento(raiz);
                     imprimirFatorBalanceamento(raiz);
                 }
+
+                printf("\n\nArvore preenchida com sucesso!\n\n");
                 break;
             case 'b':
+                printf("\n\n========= BUSCAR NO =======\n\n");
                 while (1){
                         printf("\nInforme o valor que sera procurado na árvore: ");
-                        scanf("%d",&leitura);
+                        leitura = lerInteiro(": ");
                         if (leitura == 0)
-                            break;
+                        break; 
                         TArvore * endereco = buscarABB(raiz, leitura);
                         if (endereco == NULL) {
                             printf("\nEndereço nao encontrado.\n\n");
                         } else {
-                            printf("\nEndereço encontrado: %p, Valor: %d\n\n", (void*)endereco, endereco->dado);
+                            printf("\nEndereço encontrado: %p, Valor: %d\n\n", endereco, endereco->dado);
                         }
                     };
                 break;
             case 'c': 
-                        printf("\n\n========= MENU DE IMPRESSÃO =======\n\n");
-                        printf("\nInforme a ordem de impressão: ");
-                        printf("\n— [1] Pre-Ordem \n— [2] ORDEM \n— [3] Pos-Ordem");
+                        printf("\n\n========= MENU DE IMPRESSAO =======\n\n");
+                        printf("\nInforme a ordem de impressao: ");
+                        printf("\n[1] Pre-Ordem \n[2] ORDEM \n[3] Pos-Ordem \n[4] Todos");
                         printf("\n\n==================================\n\n");
 
                         int imprimir = lerInteiro(": ");
@@ -98,19 +106,39 @@ void lerAlternativa(char escolha){
                         switch (imprimir)
                             {
                             case 1:
+                                printf("\n\n========= PRE-ORDEM =======\n\n");
                                 preOrdem(raiz);
+                                printf("}\n");
                                 break;
                             case 2:
+                                printf("\n\n========= ORDEM =======\n\n");
                                 ordem(raiz);
+                                printf("}\n");
                                 break;
                             case 3: 
+                                printf("\n\n========= POS-ORDEM =======\n\n");
                                 posOrdem(raiz);
+                                printf("}\n");
+                                break;
+                            case 4:
+                                printf("\n\n========= PRE-ORDEM =======\n\n");
+                                preOrdem(raiz);
+                                printf("}\n");
+                                printf("\n\n========= ORDEM =======\n\n");
+                                ordem(raiz);
+                                printf("}\n");
+                                printf("\n\n========= POS-ORDEM =======\n\n");
+                                posOrdem(raiz);
+                                printf("}\n");
                                 break;
                             default:
                                 break;
                             }
                         ;break;
-            case 'd': break;
+            case 'd': // INSERIR AQUI O CÓDIGO PARA CONVERTER PARA JSON
+
+
+                break;
             case 'e': break;
         default:
             printf("\nValor invalido, por favor insira uma letra minuscula de (a) a (d): ");
