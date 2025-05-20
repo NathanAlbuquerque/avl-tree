@@ -6,13 +6,11 @@ extern TArvore *raiz;
 
 void menu(){
     printf("\n\n========= Menu =======\n\n");
-    
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
     printf("[c] - Imprimir Grafo\n");
     printf("[d] - Converter GRAFO para JSON\n");
     printf("[e] - Sair\n");
-
     printf("\n=======================\n\n");
 }
 
@@ -58,21 +56,20 @@ void lerAlternativa(char escolha){
                 printf("\n\n========= INSERIR NO =======\n\n");
                 printf("Para sair do loop, digite 0.\n");
 
-                if (raiz == NULL){
-                    raiz = malloc(sizeof(TArvore));
-                    raiz->dado = lerInteiro("Informe o valor da raiz: ");
-                    raiz->esq = NULL;
-                    raiz->dir = NULL;
+                if (raiz == NULL) {
+                    raiz = inserirAVL(NULL, lerInteiro("Informe o valor da raiz: "));
+                    printf("Arvore criada com sucesso!\n\n");
                 }
-                printf("Arvore criada com sucesso!\n\n");
 
                 while (1){
                     printf("Informe o valor que sera inserido na arvore: ");
                     leitura = lerInteiro(": ");
                     if (leitura == 0)
-                        break;    
-                    raiz = inserirAVL(raiz, leitura);      
-                    atualizarAltura(raiz);  
+                        break;
+
+                    atualizarAltura(raiz);
+                    raiz = inserirAVL(raiz, leitura);     
+                    atualizarAltura(raiz);
 
                     // mostra as alturas logo após inserir
                     printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
@@ -141,8 +138,6 @@ void lerAlternativa(char escolha){
                             }
                         ;break;
             case 'd': // INSERIR AQUI O CÓDIGO PARA CONVERTER PARA JSON
-
-
                 break;
             case 'e': break;
         default:

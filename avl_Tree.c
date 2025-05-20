@@ -49,9 +49,9 @@ void atualizarAltura(TArvore * raiz) {
     if (raiz == NULL) return;
     atualizarAltura(raiz->esq);
     atualizarAltura(raiz->dir);
-    int alturaEsq = raiz->esq ? raiz->esq->altura : 0; // verifica se o nó esquerdo é nulo
-    int alturaDir = raiz->dir ? raiz->dir->altura : 0; // verifica se o nó direito é nulo
-    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1; // atualiza a altura do nó
+    int alturaEsq = raiz->esq ? raiz->esq->altura : -1;
+    int alturaDir = raiz->dir ? raiz->dir->altura : -1;
+    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
 }
 
 /**
@@ -139,15 +139,15 @@ TArvore * rotacaoDireitaEsquerda(TArvore * no) {
  * @return TArvore *
  */
 TArvore * inserirAVL(TArvore * no, int dado) {
-    
+    // Neste caso a raiz é criada
     if (no == NULL) {
-        TArvore* novo = malloc(sizeof(TArvore));
+        TArvore * novo = malloc(sizeof(TArvore));
         novo->dado = dado;
         novo->esq = novo->dir = NULL;
-        novo->altura = 1;
         return novo;
     }
 
+    // Encontra o lugar aproopriado e insere o nó
     if (dado < no->dado) {
         no->esq = inserirAVL(no->esq, dado);
     } else if (dado > no->dado) {
@@ -157,8 +157,7 @@ TArvore * inserirAVL(TArvore * no, int dado) {
         return no;
     }
 
-    atualizarAltura(no);
-
+    // Balancea a árvore caso necessário
     int fb = fatorBalanceamento(no);
 
     // Caso Esquerda-Esquerda
@@ -179,4 +178,3 @@ TArvore * inserirAVL(TArvore * no, int dado) {
 
     return no;
 }
-
