@@ -17,6 +17,7 @@ void atualizarAltura(TArvore *no);
 int fatorBalanceamento(TArvore *no);
 TArvore * buscarABB(TArvore * no, int info);
 TArvore * rotacaoDireita(TArvore * no);
+TArvore * rotacaoEsquerda(TArvore * no);
 TArvore * rotacaoEsquerdaDireita(TArvore * no);
 TArvore * rotacaoDireitaEsquerda(TArvore * no);
 TArvore* inserirAVL(TArvore * no, int dado);

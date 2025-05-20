@@ -66,56 +66,79 @@ int fatorBalanceamento(TArvore * no) {
     return no->esq->altura - no->dir->altura;
 }
 
+/**
+ * Encontra e retorna um nó especifico baseado em um valor
+ * @param TArvore *no "Nó base a ser consultado"
+ * @param int info "Valor a ser procurado na árvore"
+ * @return TArvore *
+ */
 TArvore * buscarABB(TArvore * no, int info) {
-    if (no == NULL)
+    if (no == NULL) return no;
+    if (no->dado == info)
         return no;
-    
-    if (no->dado == info) {
-        return no;
-    } if (no->dado > info) {
+    else if (no->dado > info)
         return buscarABB(no->esq, info);
-    } else {
+    else
         return buscarABB(no->dir, info);
-    }
 }
 
+/**
+ * Realiza a rotação direita (to right)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoDireita(TArvore * no) {
     TArvore * nova_raiz = no->esq;
     TArvore * temp = nova_raiz->dir;
-
     nova_raiz->dir = no;
     no->esq = temp;
-
     atualizarAltura(no);
     atualizarAltura(nova_raiz);
-
     return nova_raiz;
 }
 
+/**
+ * Realiza a rotação esquerda (to left)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoEsquerda(TArvore * no) {
     TArvore * nova_raiz = no->dir;
     TArvore * temp = nova_raiz->esq;
-
     nova_raiz->esq = no;
     no->dir = temp;
-
     atualizarAltura(no);
     atualizarAltura(nova_raiz);
-
     return nova_raiz;
 }
 
+/**
+ * Realiza a rotação esquerda-direita (to left-right)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoEsquerdaDireita(TArvore * no) {
     no->esq = rotacaoEsquerda(no->esq);
     return rotacaoDireita(no);
 }
 
+/**
+ * Realiza a rotação direita-esquerda (to right-left)
+ * @param TArvore *no "Nó que será rotacionado"
+ * @return TArvore *
+ */
 TArvore * rotacaoDireitaEsquerda(TArvore * no) {
     no->dir = rotacaoDireita(no->dir);
     return rotacaoEsquerda(no);
 }
 
-TArvore* inserirAVL(TArvore * no, int dado) {
+/**
+ * Insere um novo nó na árvore, ja realizando o balanceamento necessário
+ * @param TArvore *no "Nó base de pesquisa para encontrar o local correto para inserção"
+ * @param int dado "Valor do nó a ser adicionado"
+ * @return TArvore *
+ */
+TArvore * inserirAVL(TArvore * no, int dado) {
     
     if (no == NULL) {
         TArvore* novo = malloc(sizeof(TArvore));
