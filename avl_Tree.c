@@ -76,10 +76,10 @@ int contarAltura(TArvore *no) {
 }
 
 int alturaNo(TArvore *no) {   // definindo a altura do nó
-if (no == NULL) {
-        return -1;       // verificar se o nó é nulo
-    }
-return no->altura;   // se o nó não for nulo retorna altura dele
+    if (no == NULL) {
+            return -1;       // verificar se o nó é nulo
+        }
+    return no->altura;   // se o nó não for nulo retorna altura dele
 }
 
 void atualizarAltura(TArvore *no) {
