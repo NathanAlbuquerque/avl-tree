@@ -49,9 +49,14 @@ void atualizarAltura(TArvore * raiz) {
     if (raiz == NULL) return;
     atualizarAltura(raiz->esq);
     atualizarAltura(raiz->dir);
-    int alturaEsq = raiz->esq ? raiz->esq->altura : -1;
-    int alturaDir = raiz->dir ? raiz->dir->altura : -1;
+    int alturaEsq = raiz->esq ? raiz->esq->altura : 0;
+    int alturaDir = raiz->dir ? raiz->dir->altura : 0;
     raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
+}
+
+int alturaNo(TArvore * no) {
+    if (no == NULL) return 0;
+    return no->altura;
 }
 
 /**
@@ -61,9 +66,9 @@ void atualizarAltura(TArvore * raiz) {
  */
 int fatorBalanceamento(TArvore * no) {
     if (no == NULL) return 0;
-    int alturaEsq = no->esq ? no->esq->altura : -1;
-    int alturaDir = no->dir ? no->dir->altura : -1;
-    return no->esq->altura - no->dir->altura;
+    int alturaEsq = no->esq ? no->esq->altura : 0;
+    int alturaDir = no->dir ? no->dir->altura : 0;
+    return alturaEsq - alturaDir;
 }
 
 /**
@@ -144,6 +149,7 @@ TArvore * inserirAVL(TArvore * no, int dado) {
         TArvore * novo = malloc(sizeof(TArvore));
         novo->dado = dado;
         novo->esq = novo->dir = NULL;
+        novo->altura = 0;
         return novo;
     }
 
@@ -190,6 +196,12 @@ void salvar_json(FILE *arquivo, TArvore *no) {
 
     // "dado"
     fprintf(arquivo, "   \"dado\":%d,\n", no->dado);
+
+    // fprintf(arquivo, "{ \"dado\": %d, \"esq\": ", no->dado);
+    // salvar_json(arquivo, no->esq);
+    // fprintf(arquivo, ", \"dir\": ");
+    // salvar_json(arquivo, no->dir);
+    // fprintf(arquivo, " }");
 
     // "esq"
     fprintf(arquivo, "   \"esq\":");

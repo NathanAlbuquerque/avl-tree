@@ -68,14 +68,13 @@ void lerAlternativa(char escolha){
                         break;
 
                     atualizarAltura(raiz);
-                    raiz = inserirAVL(raiz, leitura);     
-                    atualizarAltura(raiz);
+                    raiz = inserirAVL(raiz, leitura);
 
+                    atualizarAltura(raiz);
                     // mostra as alturas logo após inserir
-                    printf("\n\nAltura do no raiz: %d\n", raiz ? raiz->altura : -1);
-                    printf("Altura da subArvore esquerda: %d\n", raiz->esq->altura);
-                    printf("Altura da subArvore direita: %d\n", raiz->dir->altura);
-                    printf("Altura total da AVL: %d\n\n", raiz->altura);
+                    printf("\n\nAltura do no raiz: %d\n", raiz ? alturaNo(raiz) : -1);
+                    printf("Altura da subArvore esquerda: %d\n", alturaNo(raiz->esq));
+                    printf("Altura da subArvore direita: %d\n", alturaNo(raiz->dir));
 
                     printf("Fator de balanceamento da raiz: %d\n", fatorBalanceamento(raiz));
                 }
@@ -136,7 +135,7 @@ void lerAlternativa(char escolha){
                             default:
                                 break;
                             }
-                        ;break;
+                        break;
             case 'd':
                 exportar_arvore_json("avl.json", raiz);
                 break;
@@ -158,8 +157,8 @@ void page(){
         printf("\nDigite a opcao desejada: ");
         scanf(" %c", &escolha);
         while (getchar() != '\n'); // limpa o buffer de entrada
-        validacao = (escolha >= 'a' && escolha <= 'd');
-        if (escolha == 'd'){
+        validacao = (escolha >= 'a' && escolha <= 'e');
+        if (escolha == 'e'){
             loop = 0;
             break;
         }

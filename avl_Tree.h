@@ -14,6 +14,7 @@ void printPreOrdem(TArvore *no);
 void printOrdem(TArvore *no);
 void printPosOrdem(TArvore *no);
 void atualizarAltura(TArvore *no);
+int alturaNo(TArvore * no);
 int fatorBalanceamento(TArvore *no);
 TArvore * buscarABB(TArvore * no, int info);
 TArvore * rotacaoDireita(TArvore * no);
