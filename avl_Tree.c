@@ -54,6 +54,11 @@ void atualizarAltura(TArvore * raiz) {
     raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
 }
 
+/**
+ * Programação defensiva para acessar o campo altura de algum nó
+ * @param  TArvore *no  "Nó do qual será retornado a altura"
+ * @return int
+ */
 int alturaNo(TArvore * no) {
     if (no == NULL) return 0;
     return no->altura;
@@ -185,8 +190,12 @@ TArvore * inserirAVL(TArvore * no, int dado) {
     return no;
 }
 
-// Função recursiva para imprimir a árvore em formato JSON
-void salvar_json(FILE *arquivo, TArvore *no) {
+/**
+ * Função recursiva para imprimir a árvore em formato JSON
+ * @param  FILE *arquivo  "Arquivo aberto para realizar a impressão"
+ * @param  TArvore *no  "Nó a ser impresso na vez da recursividade"
+ */
+void salvar_json(FILE * arquivo, TArvore * no) {
     if (no == NULL) {
         fprintf(arquivo, "null");
         return;
@@ -215,7 +224,11 @@ void salvar_json(FILE *arquivo, TArvore *no) {
 
 }
 
-// Função para iniciar a gravação em arquivo
+/**
+ * Função para iniciar a gravação em arquivo
+ * @param  const char *nome_arquivo  "Nome qual o arquivo JSON será salvo"
+ * @param  TArvore *raiz  "Raiz da árvore, ínicio de onde a função irá salvar em JSON"
+ */
 void exportar_arvore_json(const char *nome_arquivo, TArvore *raiz) {
     FILE *arquivo = fopen(nome_arquivo, "w");
     if (arquivo == NULL) {
