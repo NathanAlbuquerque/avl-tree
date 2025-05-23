@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include "avl_Tree.h"
 
-extern TArvore *raiz;
+extern TArvore * raiz;
 
 void menu(){
     printf("\n\n========= Menu =======\n\n");
+    printf("\n VERSÃO 2.0 \n");
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
     printf("[c] - Imprimir Grafo\n");
@@ -67,10 +68,9 @@ void lerAlternativa(char escolha){
                     if (leitura == 0)
                         break;
 
-                    atualizarAltura(raiz);
                     raiz = inserirAVL(raiz, leitura);
-
                     atualizarAltura(raiz);
+
                     // mostra as alturas logo após inserir
                     printf("\n\nAltura do no raiz: %d\n", raiz ? alturaNo(raiz) : -1);
                     printf("Altura da subArvore esquerda: %d\n", alturaNo(raiz->esq));
@@ -109,28 +109,28 @@ void lerAlternativa(char escolha){
                             case 1:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
                                 printPreOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 break;
                             case 2:
                                 printf("\n\n========= ORDEM =======\n\n");
                                 printOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 break;
                             case 3: 
                                 printf("\n\n========= POS-ORDEM =======\n\n");
                                 printPosOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 break;
                             case 4:
                                 printf("\n\n========= PRE-ORDEM =======\n\n");
                                 printPreOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 printf("\n\n========= ORDEM =======\n\n");
                                 printOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 printf("\n\n========= POS-ORDEM =======\n\n");
                                 printPosOrdem(raiz);
-                                printf("}\n");
+                                printf("\n");
                                 break;
                             default:
                                 break;
@@ -138,6 +138,7 @@ void lerAlternativa(char escolha){
                         break;
             case 'd':
                 exportar_arvore_json("avl.json", raiz);
+                printf("\nÁrvore exportada com sucesso para 'avl.json'.\n");
                 break;
             case 'e': break;
         default:
@@ -148,7 +149,7 @@ void lerAlternativa(char escolha){
 
 void page(){
     char escolha;
-    int loop=1;
+    int loop = 1;
     int voltar;
     int validacao;
     menu();
@@ -159,6 +160,7 @@ void page(){
         while (getchar() != '\n'); // limpa o buffer de entrada
         validacao = (escolha >= 'a' && escolha <= 'e');
         if (escolha == 'e'){
+            printf("\nFinalizando o programa...Obrigado pela atencao!\n");
             loop = 0;
             break;
         }

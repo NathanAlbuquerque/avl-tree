@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "avl_Tree.h"
 
-TArvore *raiz = NULL;
+TArvore * raiz = NULL;
 
 /**
  * Percorre e printa a árvore no sentido de pré-ordem
@@ -11,7 +11,7 @@ TArvore *raiz = NULL;
  */
 void printPreOrdem(TArvore * no) {
     if (no == NULL) return;
-    printf("%p %d ", no, no->dado);
+    printf("%d ", no->dado);
     printPreOrdem(no->esq);
     printPreOrdem(no->dir);
 }
@@ -24,7 +24,7 @@ void printPreOrdem(TArvore * no) {
 void printOrdem(TArvore * no) {
     if (no == NULL) return;
     printOrdem(no->esq);
-    printf("%p %d ", (void *)no, no->dado);
+    printf("%d ", no->dado);
     printOrdem(no->dir);
 }
 
@@ -37,7 +37,7 @@ void printPosOrdem(TArvore * no) {
     if (no == NULL) return;
     printPosOrdem(no->esq);
     printPosOrdem(no->dir);
-    printf("%p %d ", (void *)no, no->dado);
+    printf("%d ", no->dado);
 }
 
 /**
@@ -57,7 +57,8 @@ int alturaNo(TArvore * no) {
 }
 
 void atualizarAltura(TArvore * raiz) {
-    if (raiz == NULL) return;
+    if (raiz == NULL) 
+        return;
     int alturaEsq = raiz->esq ? raiz->esq->altura : 0;
     int alturaDir = raiz->dir ? raiz->dir->altura : 0;
     raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
@@ -72,7 +73,7 @@ int fatorBalanceamento(TArvore * no) {
     if (no == NULL) return 0;
     int alturaEsq = no->esq ? no->esq->altura : 0;
     int alturaDir = no->dir ? no->dir->altura : 0;
-    return alturaEsq - alturaDir;
+    return alturaDir - alturaEsq;
 }
 
 /**
@@ -153,7 +154,7 @@ TArvore * inserirAVL(TArvore * no, int dado) {
         TArvore * novo = malloc(sizeof(TArvore));
         novo->dado = dado;
         novo->esq = novo->dir = NULL;
-        novo->altura = 0;
+        novo->altura = 1;
         return novo;
     }
 
@@ -174,22 +175,20 @@ TArvore * inserirAVL(TArvore * no, int dado) {
     int fb = fatorBalanceamento(no);
 
     // Caso Esquerda-Esquerda
-    if (fb > 1 && dado < no->esq->dado)
+    if (fb < -1 && dado < no->esq->dado)
         return rotacaoDireita(no);
 
     // Caso Direita-Direita
-    if (fb < -1 && dado > no->dir->dado)
+    if (fb > 1 && dado > no->dir->dado)
         return rotacaoEsquerda(no);
 
     // Caso Esquerda-Direita
-    if (fb > 1 && dado > no->esq->dado){
+    if (fb < -1 && dado > no->esq->dado)
         return rotacaoEsquerdaDireita(no);
-    }
 
     // Caso Direita-Esquerda
-    if (fb < -1 && dado < no->dir->dado){
+    if (fb > 1 && dado < no->dir->dado)
         return rotacaoDireitaEsquerda(no);
-    }
 
     return no;
 }
@@ -210,12 +209,6 @@ void salvar_json(FILE * arquivo, TArvore * no) {
     // "dado"
     fprintf(arquivo, "   \"dado\":%d,\n", no->dado);
 
-    // fprintf(arquivo, "{ \"dado\": %d, \"esq\": ", no->dado);
-    // salvar_json(arquivo, no->esq);
-    // fprintf(arquivo, ", \"dir\": ");
-    // salvar_json(arquivo, no->dir);
-    // fprintf(arquivo, " }");
-
     // "esq"
     fprintf(arquivo, "   \"esq\":");
     salvar_json(arquivo, no->esq);
@@ -233,8 +226,8 @@ void salvar_json(FILE * arquivo, TArvore * no) {
  * @param  const char *nome_arquivo  "Nome qual o arquivo JSON será salvo"
  * @param  TArvore *raiz  "Raiz da árvore, ínicio de onde a função irá salvar em JSON"
  */
-void exportar_arvore_json(const char *nome_arquivo, TArvore *raiz) {
-    FILE *arquivo = fopen(nome_arquivo, "w");
+void exportar_arvore_json(const char * nome_arquivo, TArvore * raiz) {
+    FILE * arquivo = fopen(nome_arquivo, "w");
     if (arquivo == NULL) {
         perror("Erro ao abrir o arquivo");
         return;
