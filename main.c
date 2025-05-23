@@ -6,7 +6,6 @@ extern TArvore * raiz;
 
 void menu(){
     printf("\n\n========= Menu =======\n\n");
-    printf("\n VERSÃO 2.0 \n");
     printf("[a] - Inserir No\n");
     printf("[b] - Buscar No\n");
     printf("[c] - Imprimir Grafo\n");

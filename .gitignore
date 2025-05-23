@@ -3,6 +3,6 @@
 *.o
 *.obj
 *.pdb
-avl.json
+*.json
 /.vscode
 /output
