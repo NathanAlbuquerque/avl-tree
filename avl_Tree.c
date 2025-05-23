@@ -45,18 +45,17 @@ void printPosOrdem(TArvore * no) {
  * @param TArvore *raiz "Raiz da árvore"
  * @return void
  */
-void atualizarAltura(TArvore * raiz) {
-    if (raiz == NULL) return;
-    atualizarAltura(raiz->esq);
-    atualizarAltura(raiz->dir);
-    int alturaEsq = raiz->esq ? raiz->esq->altura : 0;
-    int alturaDir = raiz->dir ? raiz->dir->altura : 0;
-    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
-}
 
 int alturaNo(TArvore * no) {
     if (no == NULL) return 0;
     return no->altura;
+}
+
+void atualizarAltura(TArvore * raiz) {
+    if (raiz == NULL) return;
+    int alturaEsq = raiz->esq ? raiz->esq->altura : 0;
+    int alturaDir = raiz->dir ? raiz->dir->altura : 0;
+    raiz->altura = (alturaEsq > alturaDir ? alturaEsq : alturaDir) + 1;
 }
 
 /**
@@ -163,6 +162,9 @@ TArvore * inserirAVL(TArvore * no, int dado) {
         return no;
     }
 
+    // Atualiza a altura do nó atual
+    atualizarAltura(no);
+
     // Balancea a árvore caso necessário
     int fb = fatorBalanceamento(no);
 
@@ -175,12 +177,14 @@ TArvore * inserirAVL(TArvore * no, int dado) {
         return rotacaoEsquerda(no);
 
     // Caso Esquerda-Direita
-    if (fb > 1 && dado > no->esq->dado)
+    if (fb > 1 && dado > no->esq->dado){
         return rotacaoEsquerdaDireita(no);
+    }
 
     // Caso Direita-Esquerda
-    if (fb < -1 && dado < no->dir->dado)
+    if (fb < -1 && dado < no->dir->dado){
         return rotacaoDireitaEsquerda(no);
+    }
 
     return no;
 }
